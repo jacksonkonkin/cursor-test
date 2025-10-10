@@ -112,13 +112,14 @@ const categoryInfo = {
 };
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     category: string;
-  };
+  }>;
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const category = params.category.toLowerCase();
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category: categoryParam } = await params;
+  const category = categoryParam.toLowerCase();
   const products = categoryProducts[category as keyof typeof categoryProducts] || [];
   const info = categoryInfo[category as keyof typeof categoryInfo];
 
@@ -194,7 +195,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                       fill
                       className="object-cover"
                     />
-                    {product.originalPrice && (
+                    {'originalPrice' in product && product.originalPrice && (
                       <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-sm font-semibold">
                         Sale
                       </div>
@@ -229,7 +230,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                     {/* Price */}
                     <div className="flex items-center mb-4">
                       <span className="text-2xl font-bold text-gray-900">${product.price}</span>
-                      {product.originalPrice && (
+                      {'originalPrice' in product && product.originalPrice && (
                         <span className="ml-2 text-lg text-gray-500 line-through">
                           ${product.originalPrice}
                         </span>

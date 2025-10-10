@@ -64,7 +64,7 @@ const categories = [
 export default function Home() {
   const { addToCart } = useCart();
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: typeof featuredProducts[0]) => {
     addToCart({
       id: product.id,
       name: product.name,
@@ -230,7 +230,7 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Satisfaction Guarantee</h3>
-              <p className="text-gray-600">30-day money-back guarantee if you're not completely satisfied</p>
+              <p className="text-gray-600">30-day money-back guarantee if you&apos;re not completely satisfied</p>
             </div>
           </div>
         </div>
